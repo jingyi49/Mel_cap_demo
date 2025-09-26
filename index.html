@@ -56,12 +56,14 @@
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center space-x-2">
                     <i class="fa fa-headphones text-primary text-2xl"></i>
-                    <h1 class="text-xl font-semibold text-dark">Mel Cap Demo</h1>
+                    <h1 class="text-xl font-semibold text-dark">MelCap Demo</h1>
                 </div>
                 
                 <nav class="hidden md:flex items-center space-x-8">
                     <a href="#abstract" class="text-dark hover:text-primary transition-colors">Abstract</a>
-                    <a href="#samples" class="text-dark hover:text-primary transition-colors">Audio Samples</a>
+                    <a href="#samples1" class="text-dark hover:text-primary transition-colors">General Sound</a>
+                    <a href="#samples2" class="text-dark hover:text-primary transition-colors">Speech</a>
+                    <a href="#samples3" class="text-dark hover:text-primary transition-colors">Music</a>
                 </nav>
                 
                 <button id="mobile-menu-button" class="md:hidden text-dark text-xl">
@@ -73,7 +75,9 @@
             <div id="mobile-menu" class="md:hidden hidden pb-4">
                 <div class="flex flex-col space-y-3">
                     <a href="#abstract" class="text-dark hover:text-primary transition-colors py-2">Abstract</a>
-                    <a href="#samples" class="text-dark hover:text-primary transition-colors py-2">Audio Samples</a>
+                    <a href="#samples1" class="text-dark hover:text-primary transition-colors py-2">General Sound</a>
+                    <a href="#samples2" class="text-dark hover:text-primary transition-colors py-2">Speech</a>
+                    <a href="#samples3" class="text-dark hover:text-primary transition-colors py-2">Music</a>
                 </div>
             </div>
         </div>
@@ -90,11 +94,14 @@
                     Here is our demo page, showcasing MelCap — a high-fidelity single-codebook neural audio codec.
                 </p>
                 <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <a href="#samples" class="bg-primary text-white px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors">
-                        Listen to Samples
+                    <a href="#samples1" class="bg-primary text-white px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors">
+                        General Sound
                     </a>
-                    <a href="#samples" class="border border-primary text-primary px-6 py-3 rounded-md font-medium hover:bg-primary/5 transition-colors">
-                        View Spectrogram
+                    <a href="#samples2" class="bg-primary text-white px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors">
+                        Speech
+                    </a>
+                    <a href="#samples3" class="bg-primary text-white px-6 py-3 rounded-md font-medium hover:bg-primary/90 transition-colors">
+                        Music
                     </a>
                 </div>
             </div>
@@ -165,6 +172,15 @@
                         <h3 class="text-xl font-semibold mb-2">Baseline 5:<br> Nvidia Codec</h3>
                         <p class="text-muted">Number of Quantizer: 9</p>
                     </div>
+
+                    <div class="bg-light p-6 rounded-lg shadow-sm audio-card-hover">
+                        <div class="text-primary text-3xl mb-4">
+                            <i class="fa fa-microphone"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2">Baseline 6:<br> Spectral Codec</h3>
+                        <p class="text-muted">Number of Quantizer: 9</p>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -175,164 +191,949 @@
     <script src="https://unpkg.com/wavesurfer.js/dist/plugins/spectrogram.min.js"></script>
 
     <!-- Audio Samples Section -->
-    <section id="samples" class="py-16 bg-light section-fade-in">
+    <section id="samples1" class="py-16 bg-light section-fade-in">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">Non-speech & Non-music</h2>
+            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">General Sound</h2>
             <div class="w-20 h-1 bg-primary mx-auto mb-10"></div>
             
-            <!-- 音频样例 -->
-            <div class="max-w-4xl mx-auto mb-16 bg-neutral p-6 rounded-xl shadow-sm">
+            <!-- Sample Group -->
+            <div class="max-w-6xl mx-auto mb-16 bg-neutral p-6 rounded-xl shadow-sm">
                 <h3 class="text-xl font-semibold mb-6 flex items-center">
                     <span class="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3">1</span>
-                    Sample Group: Speech Synthesis
+                    Whistle Sound
                 </h3>
 
-                <div class="space-y-8">
-                    <!-- Our Method -->
-                    <div class="bg-white p-5 rounded-lg shadow-sm">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                            <h4 class="text-lg font-medium text-primary">Ground Truth</h4>
-                            <span class="text-sm bg-primary/10 text-primary px-3 py-1 rounded-full">0:05</span>
-                        </div>
-                        <!-- 波形容器 -->
-                        <div id="waveform-our"></div>
-                        <!-- 频谱图容器 -->
-                        <div id="spectrogram-our" class="h-32 mt-2"></div>
-                        <p class="mt-3 text-sm text-muted">
-                            A clear, high-pitched whistle cuts through the air, bright and slightly airy.
-                        </p>
+                <!-- 横排排列 -->
+                <div class="flex flex-wrap gap-6 justify-center">
+                    <!-- Ground Truth -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium text-primary mb-2">Ground Truth</h4>
+                        <div id="spectrogram-gt" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="gt/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
                     </div>
-                    <div class="bg-white p-5 rounded-lg shadow-sm">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                            <h4 class="text-lg font-medium text-primary">Our Method</h4>
-                            <span class="text-sm bg-primary/10 text-primary px-3 py-1 rounded-full">0:05</span>
-                        </div>
-                        <!-- 波形容器 -->
-                        <div id="waveform-our"></div>
-                        <!-- 频谱图容器 -->
-                        <div id="spectrogram-our" class="h-32 mt-2"></div>
-                        <p class="mt-3 text-sm text-muted">
-                            A clear, high-pitched whistle cuts through the air, bright and slightly airy.
-                        </p>
+
+                    <!-- Our Method -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium text-primary mb-2">MelCap</h4>
+                        <div id="spectrogram-our" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_eval/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
                     </div>
 
                     <!-- Baseline 1 -->
-                    <div class="bg-white p-5 rounded-lg shadow-sm">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                            <h4 class="text-lg font-medium">Baseline Method 1</h4>
-                            <span class="text-sm bg-neutral px-3 py-1 rounded-full">0:05</span>
-                        </div>
-                        <div id="waveform-b1"></div>
-                        <div id="spectrogram-b1" class="h-32 mt-2"></div>
-                        <p class="mt-3 text-sm text-muted">
-                            Same text input processed with baseline neural network approach.
-                        </p>
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">WavTokenizer</h4>
+                        <div id="spectrogram-b1" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="wav_tokenizer/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
                     </div>
-                    <!-- Baseline 1 -->
-                    <div class="bg-white p-5 rounded-lg shadow-sm">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                            <h4 class="text-lg font-medium">Baseline Method 1</h4>
-                            <span class="text-sm bg-neutral px-3 py-1 rounded-full">0:05</span>
-                        </div>
-                        <div id="waveform-b1"></div>
-                        <div id="spectrogram-b1" class="h-32 mt-2"></div>
-                        <p class="mt-3 text-sm text-muted">
-                            Same text input processed with baseline neural network approach.
-                        </p>
+
+                    <!-- Baseline 2 -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">DAC(s)</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_s/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
                     </div>
-                    <!-- Baseline 1 -->
-                    <div class="bg-white p-5 rounded-lg shadow-sm">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                            <h4 class="text-lg font-medium">Baseline Method 1</h4>
-                            <span class="text-sm bg-neutral px-3 py-1 rounded-full">0:05</span>
-                        </div>
-                        <div id="waveform-b1"></div>
-                        <div id="spectrogram-b1" class="h-32 mt-2"></div>
-                        <p class="mt-3 text-sm text-muted">
-                            Same text input processed with baseline neural network approach.
-                        </p>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">SNAC</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="snac_val/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
                     </div>
-                    <!-- Baseline 1 -->
-                    <div class="bg-white p-5 rounded-lg shadow-sm">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                            <h4 class="text-lg font-medium">Baseline Method 1</h4>
-                            <span class="text-sm bg-neutral px-3 py-1 rounded-full">0:05</span>
-                        </div>
-                        <div id="waveform-b1"></div>
-                        <div id="spectrogram-b1" class="h-32 mt-2"></div>
-                        <p class="mt-3 text-sm text-muted">
-                            Same text input processed with baseline neural network approach.
-                        </p>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">DAC</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_eval/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
                     </div>
-                    <!-- Baseline 1 -->
-                    <div class="bg-white p-5 rounded-lg shadow-sm">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                            <h4 class="text-lg font-medium">Baseline Method 1</h4>
-                            <span class="text-sm bg-neutral px-3 py-1 rounded-full">0:05</span>
-                        </div>
-                        <div id="waveform-b1"></div>
-                        <div id="spectrogram-b1" class="h-32 mt-2"></div>
-                        <p class="mt-3 text-sm text-muted">
-                            Same text input processed with baseline neural network approach.
-                        </p>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">Nvidia Codec</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="nvidia_codec/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
                     </div>
-                    <!-- Baseline 1 -->
-                    <div class="bg-white p-5 rounded-lg shadow-sm">
-                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-4">
-                            <h4 class="text-lg font-medium">Baseline Method 1</h4>
-                            <span class="text-sm bg-neutral px-3 py-1 rounded-full">0:05</span>
-                        </div>
-                        <div id="waveform-b1"></div>
-                        <div id="spectrogram-b1" class="h-32 mt-2"></div>
-                        <p class="mt-3 text-sm text-muted">
-                            Same text input processed with baseline neural network approach.
-                        </p>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">Spectral Codec</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="spectral_codec/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
                     </div>
                 </div>
+            
+
+            <!-- Sample Group -->
+            <div class="max-w-6xl mx-auto mb-16 bg-neutral p-6 rounded-xl shadow-sm">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <span class="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3">2</span>
+                    Whistle Sound
+                </h3>
+
+                <!-- 横排排列 -->
+                <div class="flex flex-wrap gap-6 justify-center">
+                    <!-- Ground Truth -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium text-primary mb-2">Ground Truth</h4>
+                        <div id="spectrogram-gt" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="gt/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Our Method -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium text-primary mb-2">MelCap</h4>
+                        <div id="spectrogram-our" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_eval/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Baseline 1 -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">WavTokenizer</h4>
+                        <div id="spectrogram-b1" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="wav_tokenizer/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Baseline 2 -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">DAC(s)</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_s/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">SNAC</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="snac_val/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">DAC</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_eval/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">Nvidia Codec</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="nvidia_codec/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">Spectral Codec</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="spectral_codec/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+
+            <!-- Sample Group -->
+            <div class="max-w-6xl mx-auto mb-16 bg-neutral p-6 rounded-xl shadow-sm">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <span class="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3">3</span>
+                    Whistle Sound
+                </h3>
+
+                <!-- 横排排列 -->
+                <div class="flex flex-wrap gap-6 justify-center">
+                    <!-- Ground Truth -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium text-primary mb-2">Ground Truth</h4>
+                        <div id="spectrogram-gt" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="gt/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Our Method -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium text-primary mb-2">MelCap</h4>
+                        <div id="spectrogram-our" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_eval/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Baseline 1 -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">WavTokenizer</h4>
+                        <div id="spectrogram-b1" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="wav_tokenizer/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Baseline 2 -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">DAC(s)</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_s/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">SNAC</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="snac_val/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">DAC</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_eval/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">Nvidia Codec</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="nvidia_codec/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">Spectral Codec</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="spectral_codec/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+
+
             </div>
 
-            <script>
-                // Our Method
-                let wavesurferOur = WaveSurfer.create({
-                    container: '#waveform-our',
-                    waveColor: '#ddd',
-                    progressColor: '#4f46e5', // primary 色
-                    height: 80,
-                    url: 'sample1_our.wav',
-                    plugins: [
-                        WaveSurfer.Spectrogram.create({
-                            container: '#spectrogram-our',
-                            labels: true
-                        })
-                    ]
-                });
+        </div>
 
-                // Baseline 1
-                let wavesurferB1 = WaveSurfer.create({
-                    container: '#waveform-b1',
-                    waveColor: '#ddd',
-                    progressColor: '#6b7280', // gray
-                    height: 80,
-                    url: 'sample1_baseline1.wav',
-                    plugins: [
-                        WaveSurfer.Spectrogram.create({
-                            container: '#spectrogram-b1',
-                            labels: true
-                        })
-                    ]
-                });
-            </script>           
+        <!-- WaveSurfer JS -->
+        <script>
+            const wsOptions = (specContainer, url, color='#4f46e5') => ({
+                container: specContainer,
+                height: 0, // 隐藏波形
+                plugins: [
+                    WaveSurfer.Spectrogram.create({
+                        container: specContainer,
+                        labels: true,
+                        height: 180, // 调大频谱高度
+                        frequencyMin: 0,
+                        frequencyMax: 22000
+                    })
+                ]
+            });
+
+            let wsGT  = WaveSurfer.create(wsOptions('#spectrogram-gt'));
+            wsGT.load('gt/4_pj-rF2ugs.wav');
+
+            let wsOur = WaveSurfer.create(wsOptions('#spectrogram-our'));
+            wsOur.load('mel_cap/4_pj-rF2ugs.wav');
+
+            let wsB1  = WaveSurfer.create(wsOptions('#spectrogram-b1'));
+            wsB1.load('wav_tokenizer/4_pj-rF2ugs.wav');
+
+            let wsB2  = WaveSurfer.create(wsOptions('#spectrogram-b2'));
+            wsB2.load('dac_s/4_pj-rF2ugs.wav');
+
+            let wsB3  = WaveSurfer.create(wsOptions('#spectrogram-b3'));
+            wsB3.load('snac_val/4_pj-rF2ugs.wav');
+
+            let wsB4  = WaveSurfer.create(wsOptions('#spectrogram-b4'));
+            wsB4.load('dac_eval/4_pj-rF2ugs.wav');
+
+            let wsB5  = WaveSurfer.create(wsOptions('#spectrogram-b5'));
+            wsB5.load('nvidia_codec/4_pj-rF2ugs.wav');
+
+            let wsB6  = WaveSurfer.create(wsOptions('#spectrogram-b6'));
+            wsB6.load('spectral_codec/4_pj-rF2ugs.wav');
+
+
+        </script>
+    </section>
+
+
+   <section id="samples2" class="py-16 bg-light section-fade-in">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">Speech</h2>
+            <div class="w-20 h-1 bg-primary mx-auto mb-10"></div>
+            
+            <!-- Sample Group -->
+            <div class="max-w-6xl mx-auto mb-16 bg-neutral p-6 rounded-xl shadow-sm">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <span class="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3">1</span>
+                    Whistle Sound
+                </h3>
+
+                <!-- 横排排列 -->
+                <div class="flex flex-wrap gap-6 justify-center">
+                    <!-- Ground Truth -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium text-primary mb-2">Ground Truth</h4>
+                        <div id="spectrogram-gt" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="gt/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Our Method -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium text-primary mb-2">MelCap</h4>
+                        <div id="spectrogram-our" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_eval/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Baseline 1 -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">WavTokenizer</h4>
+                        <div id="spectrogram-b1" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="wav_tokenizer/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Baseline 2 -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">DAC(s)</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_s/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">SNAC</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="snac_val/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">DAC</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_eval/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">Nvidia Codec</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="nvidia_codec/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">Spectral Codec</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="spectral_codec/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+            
+
+            <!-- Sample Group -->
+            <div class="max-w-6xl mx-auto mb-16 bg-neutral p-6 rounded-xl shadow-sm">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <span class="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3">2</span>
+                    Whistle Sound
+                </h3>
+
+                <!-- 横排排列 -->
+                <div class="flex flex-wrap gap-6 justify-center">
+                    <!-- Ground Truth -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium text-primary mb-2">Ground Truth</h4>
+                        <div id="spectrogram-gt" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="gt/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Our Method -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium text-primary mb-2">MelCap</h4>
+                        <div id="spectrogram-our" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_eval/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Baseline 1 -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">WavTokenizer</h4>
+                        <div id="spectrogram-b1" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="wav_tokenizer/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Baseline 2 -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">DAC(s)</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_s/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">SNAC</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="snac_val/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">DAC</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_eval/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">Nvidia Codec</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="nvidia_codec/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">Spectral Codec</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="spectral_codec/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+
+            <!-- Sample Group -->
+            <div class="max-w-6xl mx-auto mb-16 bg-neutral p-6 rounded-xl shadow-sm">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <span class="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3">3</span>
+                    Whistle Sound
+                </h3>
+
+                <!-- 横排排列 -->
+                <div class="flex flex-wrap gap-6 justify-center">
+                    <!-- Ground Truth -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium text-primary mb-2">Ground Truth</h4>
+                        <div id="spectrogram-gt" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="gt/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Our Method -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium text-primary mb-2">MelCap</h4>
+                        <div id="spectrogram-our" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_eval/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Baseline 1 -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">WavTokenizer</h4>
+                        <div id="spectrogram-b1" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="wav_tokenizer/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Baseline 2 -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">DAC(s)</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_s/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">SNAC</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="snac_val/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">DAC</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_eval/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">Nvidia Codec</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="nvidia_codec/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">Spectral Codec</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="spectral_codec/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+
+
+            </div>
 
         </div>
+
+        <!-- WaveSurfer JS -->
+        <script>
+            const wsOptions = (specContainer, url, color='#4f46e5') => ({
+                container: specContainer,
+                height: 0, // 隐藏波形
+                plugins: [
+                    WaveSurfer.Spectrogram.create({
+                        container: specContainer,
+                        labels: true,
+                        height: 180, // 调大频谱高度
+                        frequencyMin: 0,
+                        frequencyMax: 22000
+                    })
+                ]
+            });
+
+            let wsGT  = WaveSurfer.create(wsOptions('#spectrogram-gt'));
+            wsGT.load('gt/4_pj-rF2ugs.wav');
+
+            let wsOur = WaveSurfer.create(wsOptions('#spectrogram-our'));
+            wsOur.load('mel_cap/4_pj-rF2ugs.wav');
+
+            let wsB1  = WaveSurfer.create(wsOptions('#spectrogram-b1'));
+            wsB1.load('wav_tokenizer/4_pj-rF2ugs.wav');
+
+            let wsB2  = WaveSurfer.create(wsOptions('#spectrogram-b2'));
+            wsB2.load('dac_s/4_pj-rF2ugs.wav');
+
+            let wsB3  = WaveSurfer.create(wsOptions('#spectrogram-b3'));
+            wsB3.load('snac_val/4_pj-rF2ugs.wav');
+
+            let wsB4  = WaveSurfer.create(wsOptions('#spectrogram-b4'));
+            wsB4.load('dac_eval/4_pj-rF2ugs.wav');
+
+            let wsB5  = WaveSurfer.create(wsOptions('#spectrogram-b5'));
+            wsB5.load('nvidia_codec/4_pj-rF2ugs.wav');
+
+            let wsB6  = WaveSurfer.create(wsOptions('#spectrogram-b6'));
+            wsB6.load('spectral_codec/4_pj-rF2ugs.wav');
+
+
+        </script>
+    </section>
+
+   <section id="samples3" class="py-16 bg-light section-fade-in">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl md:text-3xl font-bold mb-6 text-center">Music</h2>
+            <div class="w-20 h-1 bg-primary mx-auto mb-10"></div>
+            
+            <!-- Sample Group -->
+            <div class="max-w-6xl mx-auto mb-16 bg-neutral p-6 rounded-xl shadow-sm">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <span class="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3">1</span>
+                    Whistle Sound
+                </h3>
+
+                <!-- 横排排列 -->
+                <div class="flex flex-wrap gap-6 justify-center">
+                    <!-- Ground Truth -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium text-primary mb-2">Ground Truth</h4>
+                        <div id="spectrogram-gt" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="gt/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Our Method -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium text-primary mb-2">MelCap</h4>
+                        <div id="spectrogram-our" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_eval/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Baseline 1 -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">WavTokenizer</h4>
+                        <div id="spectrogram-b1" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="wav_tokenizer/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Baseline 2 -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">DAC(s)</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_s/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">SNAC</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="snac_val/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">DAC</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_eval/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">Nvidia Codec</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="nvidia_codec/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">Spectral Codec</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="spectral_codec/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+            
+
+            <!-- Sample Group -->
+            <div class="max-w-6xl mx-auto mb-16 bg-neutral p-6 rounded-xl shadow-sm">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <span class="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3">2</span>
+                    Whistle Sound
+                </h3>
+
+                <!-- 横排排列 -->
+                <div class="flex flex-wrap gap-6 justify-center">
+                    <!-- Ground Truth -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium text-primary mb-2">Ground Truth</h4>
+                        <div id="spectrogram-gt" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="gt/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Our Method -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium text-primary mb-2">MelCap</h4>
+                        <div id="spectrogram-our" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_eval/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Baseline 1 -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">WavTokenizer</h4>
+                        <div id="spectrogram-b1" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="wav_tokenizer/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Baseline 2 -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">DAC(s)</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_s/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">SNAC</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="snac_val/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">DAC</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_eval/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">Nvidia Codec</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="nvidia_codec/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">Spectral Codec</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="spectral_codec/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+
+            <!-- Sample Group -->
+            <div class="max-w-6xl mx-auto mb-16 bg-neutral p-6 rounded-xl shadow-sm">
+                <h3 class="text-xl font-semibold mb-6 flex items-center">
+                    <span class="bg-primary/10 text-primary w-8 h-8 rounded-full flex items-center justify-center mr-3">3</span>
+                    Whistle Sound
+                </h3>
+
+                <!-- 横排排列 -->
+                <div class="flex flex-wrap gap-6 justify-center">
+                    <!-- Ground Truth -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium text-primary mb-2">Ground Truth</h4>
+                        <div id="spectrogram-gt" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="gt/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Our Method -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium text-primary mb-2">MelCap</h4>
+                        <div id="spectrogram-our" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_eval/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Baseline 1 -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">WavTokenizer</h4>
+                        <div id="spectrogram-b1" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="wav_tokenizer/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <!-- Baseline 2 -->
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">DAC(s)</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_s/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">SNAC</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="snac_val/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">DAC</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="dac_eval/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">Nvidia Codec</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="nvidia_codec/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg shadow-sm flex flex-col items-center w-72">
+                        <h4 class="text-lg font-medium mb-2">Spectral Codec</h4>
+                        <div id="spectrogram-b2" class="w-full h-48"></div>
+                        <audio controls class="mt-2 w-full">
+                            <source src="spectral_codec/4_pj-rF2ugs.wav" type="audio/wav">
+                            Your browser does not support the audio element.
+                        </audio>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <!-- WaveSurfer JS -->
+        <script>
+            const wsOptions = (specContainer, url, color='#4f46e5') => ({
+                container: specContainer,
+                height: 0, // 隐藏波形
+                plugins: [
+                    WaveSurfer.Spectrogram.create({
+                        container: specContainer,
+                        labels: true,
+                        height: 180, // 调大频谱高度
+                        frequencyMin: 0,
+                        frequencyMax: 22000
+                    })
+                ]
+            });
+
+            let wsGT  = WaveSurfer.create(wsOptions('#spectrogram-gt'));
+            wsGT.load('gt/4_pj-rF2ugs.wav');
+
+            let wsOur = WaveSurfer.create(wsOptions('#spectrogram-our'));
+            wsOur.load('mel_cap/4_pj-rF2ugs.wav');
+
+            let wsB1  = WaveSurfer.create(wsOptions('#spectrogram-b1'));
+            wsB1.load('wav_tokenizer/4_pj-rF2ugs.wav');
+
+            let wsB2  = WaveSurfer.create(wsOptions('#spectrogram-b2'));
+            wsB2.load('dac_s/4_pj-rF2ugs.wav');
+
+            let wsB3  = WaveSurfer.create(wsOptions('#spectrogram-b3'));
+            wsB3.load('snac_val/4_pj-rF2ugs.wav');
+
+            let wsB4  = WaveSurfer.create(wsOptions('#spectrogram-b4'));
+            wsB4.load('dac_eval/4_pj-rF2ugs.wav');
+
+            let wsB5  = WaveSurfer.create(wsOptions('#spectrogram-b5'));
+            wsB5.load('nvidia_codec/4_pj-rF2ugs.wav');
+
+            let wsB6  = WaveSurfer.create(wsOptions('#spectrogram-b6'));
+            wsB6.load('spectral_codec/4_pj-rF2ugs.wav');
+
+
+        </script>
     </section>
 
 
 
 
-
-
-
-  
     <!-- JavaScript for interactions -->
     <script>
         // Mobile menu toggle
